@@ -2,10 +2,17 @@
 
 {% block content %}
 <div class="container">
-    <h2>ورود به حساب کاربری</h2>
+    <h2>ورود به پنل کاربری</h2>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
+        {% if form.email.errors %}
+            <div class="error-message">
+            {% for error in form.email.errors %}
+            	<p>{{ error }}</p>
+            {% endfor %}
+            </div>
+        {% endif %} 
         <button type="submit">ورود</button>
     </form>
 </div>
