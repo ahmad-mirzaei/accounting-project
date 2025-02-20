@@ -3,7 +3,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.core.exceptions import ValidationError
 
 class EmailLoginForm(AuthenticationForm):
-    username = forms.EmailField(
+    email = forms.EmailField(
         label = "ایمیل",
         widget = forms.EmailInput(attrs = {"class": "form-control", "placeholder": "ایمیل را وارد کنید"}),
         error_messages = {
