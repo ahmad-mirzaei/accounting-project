@@ -36,6 +36,14 @@ class SignupForm(forms.ModelForm):
             raise ValidationError("رمز عبور یا تایید رمز عبور یکسان نیستیند")
         return cleaned_date
 
+    def save(self, commit=True):
+        user = super().save(commit=False)  # ایجاد یک نمونه از مدل کاربر که هنوز ذخیره نشده
+        user.set_password(self.cleaned_data["password"])  # هش کردن رمز عبور
+        if commit:
+            user.save()
+        return user
+
+
 class EmailLoginForm(AuthenticationForm):
     username = forms.EmailField(
         label = "ایمیل",
