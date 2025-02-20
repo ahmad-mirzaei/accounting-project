@@ -12,13 +12,16 @@
             <a class="navbar-brand" href="{% url 'home' %}">خانه</a>
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav ms-auto">
-                    {% if user.is_authenticated %}
+                    {% if not user.is_authenticated %}
+                        <li>
+                            <a class="nav-link" href="{% url 'login' %}">ورود</a>
+                        </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'logout' %}">خروج</a>
+                            <a class="nav-link" href="{% url 'signup' %}">ثبت نام</a>  
                         </li>
                     {% else %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'login' %}">ورود</a>
+                            <a class="nav-link" href="{% url 'logout' %}">خروج</a>
                         </li>
                     {% endif %}
                 </ul>

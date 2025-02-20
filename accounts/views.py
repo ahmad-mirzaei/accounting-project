@@ -1,8 +1,9 @@
-from django.shortcuts import render
-from django.views import View
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.views import LoginView
+from django.shortcuts import render, redirect
+from .forms import EmailLoginForm, SignupForm
+from django.contrib.auth import login, logout
 from django.urls import reverse_lazy
-from .forms import EmailLoginForm
+from django.views import View
 # Create your views here.
 
 
@@ -10,6 +11,21 @@ class HomeView(View):
     def get(self, request, *args, **kwargs):
         context = {"user": request.user}
         return render(request, "base.html", context)
+
+
+class SignupView(View):
+    def get(self, request):
+        form = SignupForm()
+        return render(request, "accounts/signup.html", {"form": form})
+
+    def post(self, request):
+        form = SignupForm(request.POST)
+        if form.is_valid():
+            user = form.save()  #  ذخیره‌ی کاربر در دیتابیس
+            login(request, user)  # لاگین خودکار پس از ثبت‌نام
+            return redirect("home")  #هدایت به صفحه‌ی اصلی پس از ثبت‌نام موفق
+        return render(request, "accounts/signup.html", {"form": form})
+
 
 
 class CustomLoginView(LoginView):
