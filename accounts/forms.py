@@ -1,25 +1,31 @@
 from django import forms
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
+from .models import CustomUser
 
-class SignupForm(forms.ModelForm):
+
+
+User = get_user_model()
+
+class SignupForm(UserCreationForm):
     email = forms.EmailField(
         label = "ایمیل",
         widget = forms.EmailInput(attrs = {"class": "form-control", "placeholder": "ایمیل را وارد کنید"})
     )
-    password = forms.CharField(
+    password1 = forms.CharField(
         label = "رمز عبور",
         widget = forms.PasswordInput(attrs = {"class": "form-control", "placeholder": "رمز عبور را وارد کنید"})
     )
-    confirm_password = forms.CharField(
+    password2 = forms.CharField(
         label = "تکرار رمز عبور",
         widget = forms.PasswordInput(attrs = {"class": "form-control", "placeholder": "تکرار رمز عبور را وارد کنید"})
     )
 
     class Meta:
-        model = User
-        fields = ["email"]
+        model = CustomUser
+        fields = ["email", "password1", "password2"]
 
     def clean_email(self):
         email = self.cleaned_data.get("email")
@@ -29,8 +35,8 @@ class SignupForm(forms.ModelForm):
 
     def clean(self):
         cleaned_date = super().clean()
-        password = cleaned_date.get("password")
-        confirm_password = cleaned_date.get("confirm_password")
+        password = cleaned_date.get("password1")
+        confirm_password = cleaned_date.get("password2")
 
         if password and confirm_password and password != confirm_password:
             raise ValidationError("رمز عبور یا تایید رمز عبور یکسان نیستیند")
@@ -38,7 +44,7 @@ class SignupForm(forms.ModelForm):
 
     def save(self, commit=True):
         user = super().save(commit=False)  # ایجاد یک نمونه از مدل کاربر که هنوز ذخیره نشده
-        user.set_password(self.cleaned_data["password"])  # هش کردن رمز عبور
+        user.set_password(self.cleaned_data["password1"])  # هش کردن رمز عبور
         if commit:
             user.save()
         return user

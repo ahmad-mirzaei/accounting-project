@@ -4,8 +4,13 @@ from .forms import EmailLoginForm, SignupForm
 from django.contrib.auth import login, logout
 from django.urls import reverse_lazy
 from django.views import View
+from django.contrib.auth import get_user_model
+
 # Create your views here.
 
+
+
+User = get_user_model()
 
 class HomeView(View):
     def get(self, request, *args, **kwargs):

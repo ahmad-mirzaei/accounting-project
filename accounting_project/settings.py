@@ -89,6 +89,11 @@ DATABASES = {
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        # "OPTIONS": {
+        #     "user_attributes": ("email",),
+        #     "max_similarity": 0.7,
+        #     "message": "رمز عبور شما نباید بیش از حد شبیه ایمیل‌ تان باشد.",
+        # },
     },
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
@@ -105,7 +110,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+# LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'fa-ir'
+
 
 TIME_ZONE = 'UTC'
 
