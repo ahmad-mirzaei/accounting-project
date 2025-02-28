@@ -6,8 +6,11 @@ from django.contrib.auth.models import User
 from .models import CustomUser
 
 
+# --------------------------------------------------------------------------------------------------------
 
 User = get_user_model()
+
+# --------------------------------------------------------------------------------------------------------
 
 class SignupForm(UserCreationForm):
     email = forms.EmailField(
@@ -49,6 +52,7 @@ class SignupForm(UserCreationForm):
             user.save()
         return user
 
+# --------------------------------------------------------------------------------------------------------
 
 class EmailLoginForm(AuthenticationForm):
     username = forms.EmailField(
@@ -69,3 +73,5 @@ class EmailLoginForm(AuthenticationForm):
         if not User.objects.filter(email=email).exists():
             raise ValidationError("ایمیل وارد شده وجود ندارد.")
         return email
+
+# --------------------------------------------------------------------------------------------------------
