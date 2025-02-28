@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 # Create your models here.
 
+# -------------------------------------------------------------------------
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
@@ -18,6 +19,7 @@ class CustomUserManager(BaseUserManager):
         extra_fields.setdefault("is_superuser", True)
         return self.create_user(email, password, **extra_fields)
 
+# -------------------------------------------------------------------------
 
 class CustomUser(AbstractUser):
     username = None
@@ -34,3 +36,4 @@ class CustomUser(AbstractUser):
     class Meta:
         verbose_name = "کاربر"
         verbose_name_plural = "کاربران"
+# -------------------------------------------------------------------------
