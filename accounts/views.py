@@ -8,15 +8,17 @@ from django.contrib.auth import get_user_model
 
 # Create your views here.
 
-
+# -------------------------------------------------------------------
 
 User = get_user_model()
 
+# -------------------------------------------------------------------
 class HomeView(View):
     def get(self, request, *args, **kwargs):
         context = {"user": request.user}
         return render(request, "base.html", context)
 
+# -------------------------------------------------------------------
 
 class SignupView(View):
     def get(self, request):
@@ -31,7 +33,7 @@ class SignupView(View):
             return redirect("home")  #هدایت به صفحه‌ی اصلی پس از ثبت‌نام موفق
         return render(request, "accounts/signup.html", {"form": form})
 
-
+# -------------------------------------------------------------------
 
 class CustomLoginView(LoginView):
     form_class = EmailLoginForm
@@ -41,3 +43,5 @@ class CustomLoginView(LoginView):
         if self.request.user.is_superuser:
             return reverse_lazy("admin:index")
         return reverse_lazy("home")
+
+# -------------------------------------------------------------------
