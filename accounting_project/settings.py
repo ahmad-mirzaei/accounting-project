@@ -89,11 +89,6 @@ DATABASES = {
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-        # "OPTIONS": {
-        #     "user_attributes": ("email",),
-        #     "max_similarity": 0.7,
-        #     "message": "رمز عبور شما نباید بیش از حد شبیه ایمیل‌ تان باشد.",
-        # },
     },
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
@@ -113,7 +108,6 @@ AUTH_PASSWORD_VALIDATORS = [
 # LANGUAGE_CODE = 'en-us'
 LANGUAGE_CODE = 'fa-ir'
 
-
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
@@ -132,5 +126,5 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-# user
+# User
 AUTH_USER_MODEL = "accounts.CustomUser"
